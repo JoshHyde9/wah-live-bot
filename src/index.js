@@ -21,8 +21,8 @@ let embed;
 // Ready client
 client.on("ready", () => {
   console.log(`${client.user.tag} is ready!`);
-  client.user.setActivity("Epic", {
-    type: "STREAMING",
+  client.user.setActivity("little children", {
+    type: "WATCHING",
     url: `https://www.twitch.tv/${TWITCH_USERNAME}`,
   });
   guild = client.guilds.cache.find(
