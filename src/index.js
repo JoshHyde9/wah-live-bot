@@ -43,7 +43,7 @@ const isWahLive = async () => {
   );
 
   const data = await response.json();
-  const timeBuffer = 2 * 60 * 1000;
+  const timeBuffer = 2 * 60 * 1000; // 2 mins
 
   if (!data.stream) {
     return;
@@ -85,5 +85,5 @@ client.login(DISCORD_TOKEN).then(() => {
   // Check if Wah is live or not
   setInterval(() => {
     isWahLive();
-  }, 120000);
+  }, 60000);
 });
