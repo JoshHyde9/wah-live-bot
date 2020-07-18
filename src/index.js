@@ -85,5 +85,5 @@ client.login(DISCORD_TOKEN).then(() => {
   // Check if Wah is live or not
   setInterval(() => {
     isWahLive();
-  }, 1000);
+  }, 120000);
 });
