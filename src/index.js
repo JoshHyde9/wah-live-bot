@@ -51,6 +51,9 @@ const isWahLive = async () => {
 
   const { channel, preview, created_at, game } = data.stream;
 
+  console.log(created_at + timeBuffer);
+  console.log(Date.now());
+
   if (created_at + timeBuffer <= Date.now()) {
     embed = new MessageEmbed()
       .setTitle(`${channel.display_name} is now live on Twitch!`)
