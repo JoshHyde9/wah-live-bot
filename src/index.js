@@ -21,8 +21,8 @@ let embed;
 // Ready client
 client.on("ready", () => {
   console.log(`${client.user.tag} is ready!`);
-  client.user.setActivity("little children", {
-    type: "WATCHING",
+  client.user.setActivity("child porn", {
+    type: "STREAMING",
     url: `https://www.twitch.tv/${TWITCH_USERNAME}`,
   });
   guild = client.guilds.cache.find(
