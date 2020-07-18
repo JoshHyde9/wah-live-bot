@@ -26,7 +26,7 @@ client.on("ready", () => {
     url: `https://www.twitch.tv/${TWITCH_USERNAME}`,
   });
   guild = client.guilds.cache.find(
-    (guild) => guild.id === "715478599435812905"
+    (guild) => guild.id === "728230438702678070"
   );
 });
 
@@ -67,7 +67,7 @@ const isWahLive = async () => {
       .setColor("#800080");
 
     const announceChannel = guild.channels.cache.find(
-      (channel) => channel.id === "715478599435812909"
+      (channel) => channel.id === "728417960250835040"
     );
 
     announceChannel.send(embed);
