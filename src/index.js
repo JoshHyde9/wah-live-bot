@@ -43,7 +43,6 @@ const isWahLive = async () => {
   );
 
   const data = await response.json();
-  const timeBuffer = 2 * 60 * 1000; // 2 mins
 
   if (!data.stream) {
     return;
@@ -51,16 +50,20 @@ const isWahLive = async () => {
 
   const { channel, preview, created_at, game } = data.stream;
 
-  console.log(created_at + timeBuffer);
-  console.log(Date.now());
+  const now = new Date();
+  const streamStartTime = new Date(created_at);
 
-  if (created_at + timeBuffer <= Date.now()) {
+  const timeBuffer = streamStartTime.setMinutes(
+    streamStartTime.getMinutes() + 2
+  );
+
+  if (timeBuffer >= now) {
     embed = new MessageEmbed()
       .setTitle(`${channel.display_name} is now live on Twitch!`)
       .setURL(channel.url)
       .setDescription(`**Playing:** ${game} | ${channel.status}`)
       .setImage(preview.large)
-      .setFooter(`Stream started at: ${dayjs(created_at).format("hh:mm a")}`)
+      .setFooter(`Stream started at: ${dayjs(created_at).format("h:mm a")}`)
       .setColor("#800080");
 
     const announceChannel = guild.channels.cache.find(
