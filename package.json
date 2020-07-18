@@ -9,12 +9,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "dotenv": "^8.2.0"
-  },
+  "devDependencies": {},
   "dependencies": {
     "dayjs": "^1.8.29",
     "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
     "node-fetch": "^2.6.0"
   }
 }
