@@ -57,6 +57,10 @@ const isWahLive = async () => {
     streamStartTime.getMinutes() + 2
   );
 
+  if (channel.display_name !== TWITCH_USERNAME) {
+    return;
+  }
+
   if (timeBuffer >= now) {
     embed = new MessageEmbed()
       .setTitle(`${channel.display_name} is now live on Twitch!`)
@@ -71,8 +75,6 @@ const isWahLive = async () => {
     );
 
     announceChannel.send(embed);
-  } else {
-    return;
   }
 };
 
