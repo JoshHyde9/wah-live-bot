@@ -11,6 +11,8 @@ const TWITCH_USER_ID = process.env.TWITCH_USER_ID;
 const TWITCH_USERNAME = process.env.TWITCH_USERNAME;
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
+const CHANNEL_ID = process.env.CHANNEL_ID;
+const GUILD_ID = process.env.GUILD_ID;
 
 // Initialise new client
 const client = new Discord.Client();
@@ -25,9 +27,7 @@ client.on("ready", () => {
     type: "STREAMING",
     url: `https://www.twitch.tv/${TWITCH_USERNAME}`,
   });
-  guild = client.guilds.cache.find(
-    (guild) => guild.id === "728230438702678070"
-  );
+  guild = client.guilds.cache.find((guild) => guild.id === GUILD_ID);
 });
 
 const isWahLive = async () => {
@@ -50,31 +50,36 @@ const isWahLive = async () => {
 
   const { channel, preview, created_at, game } = data.stream;
 
-  const now = new Date();
-  const streamStartTime = new Date(created_at);
-
-  const timeBuffer = streamStartTime.setMinutes(
-    streamStartTime.getMinutes() + 2
-  );
-
   if (channel.display_name !== TWITCH_USERNAME) {
     return;
   }
 
+  const now = new Date();
+  const streamStartTime = new Date(created_at);
+
+  const timeBuffer = streamStartTime.setMinutes(
+    streamStartTime.getMinutes() + 1
+  );
+
+  // If the stream start time + 2 minutes is greater than the current time, send the announcement message
   if (timeBuffer >= now) {
-    embed = new MessageEmbed()
-      .setTitle(`${channel.display_name} is now live on Twitch!`)
-      .setURL(channel.url)
-      .setDescription(`**Playing:** ${game} | ${channel.status}`)
-      .setImage(preview.large)
-      .setFooter(`Stream started at: ${dayjs(created_at).format("h:mm a")}`)
-      .setColor("#800080");
+    try {
+      embed = new MessageEmbed()
+        .setTitle(`${channel.display_name} is now live on Twitch!`)
+        .setURL(channel.url)
+        .setDescription(`**Playing:** ${game} | ${channel.status}`)
+        .setThumbnail(channel.logo)
+        .setImage(preview.large)
+        .setColor("#800080");
 
-    const announceChannel = guild.channels.cache.find(
-      (channel) => channel.id === "728417960250835040"
-    );
+      const announceChannel = guild.channels.cache.find(
+        (channel) => channel.id === CHANNEL_ID
+      );
 
-    announceChannel.send(embed);
+      announceChannel.send(embed);
+    } catch (err) {
+      console.error(err);
+    }
   }
 };
 
