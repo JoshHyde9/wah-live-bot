@@ -61,7 +61,7 @@ const isWahLive = async () => {
     streamStartTime.getMinutes() + 1
   );
 
-  // If the stream start time + 2 minutes is greater than the current time, send the announcement message
+  // If the stream start time + 1 minute is greater than the current time, send the announcement message
   if (timeBuffer >= now) {
     try {
       embed = new MessageEmbed()
