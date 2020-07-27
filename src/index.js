@@ -15,7 +15,7 @@ const CHANNEL_ID = process.env.CHANNEL_ID;
 const GUILD_ID = process.env.GUILD_ID;
 
 // Initialise new client
-const client = new Discord.Client();
+const client = new Discord.Client({ disableMentions: "none" });
 
 let guild;
 let embed;
@@ -48,11 +48,11 @@ const isWahLive = async () => {
     return;
   }
 
-  const { channel, preview, created_at, game } = data.stream;
+  const { channel, created_at } = data.stream;
 
-  if (channel.display_name !== TWITCH_USERNAME) {
-    return;
-  }
+  // if (channel.display_name !== TWITCH_USERNAME) {
+  //   return;
+  // }
 
   const now = new Date();
   const streamStartTime = new Date(created_at);
@@ -67,16 +67,17 @@ const isWahLive = async () => {
       embed = new MessageEmbed()
         .setTitle(`${channel.display_name} is now live on Twitch!`)
         .setURL(channel.url)
-        .setDescription(`**Playing:** ${game} | ${channel.status}`)
+        .setDescription(`**Playing:** ${channel.game} | ${channel.status}`)
         .setThumbnail(channel.logo)
-        .setImage(preview.large)
-        .setColor("#800080");
+        .setImage(data.stream.preview.large)
+        .setColor("#800080")
+        .setTimestamp();
 
       const announceChannel = guild.channels.cache.find(
         (channel) => channel.id === CHANNEL_ID
       );
 
-      announceChannel.send(embed);
+      announceChannel.send("@everyone", { embed });
     } catch (err) {
       console.error(err);
     }
