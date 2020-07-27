@@ -54,6 +54,25 @@ const isWahLive = async () => {
     return;
   }
 
+  // Announce channel
+  const announceChannel = guild.channels.cache.find(
+    (channel) => channel.id === CHANNEL_ID
+  );
+
+  // Announce when 69 followers is reached
+  if (channel.followers === 69) {
+    announceChannel.send(
+      `@everyone! ${TWITCH_USERNAME} just reached 69 followers! Lmao nice.`
+    );
+  }
+
+  // Announce when 420 followers is reached
+  if (channel.followers === 420) {
+    announceChannel.send(
+      `@everyone! ${TWITCH_USERNAME} just reached 420 followers! How dope.`
+    );
+  }
+
   const now = new Date();
   const streamStartTime = new Date(created_at);
 
@@ -72,10 +91,6 @@ const isWahLive = async () => {
         .setImage(data.stream.preview.large)
         .setColor("#800080")
         .setTimestamp();
-
-      const announceChannel = guild.channels.cache.find(
-        (channel) => channel.id === CHANNEL_ID
-      );
 
       announceChannel.send("@everyone", { embed });
     } catch (err) {
