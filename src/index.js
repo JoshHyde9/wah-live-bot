@@ -50,9 +50,9 @@ const isWahLive = async () => {
 
   const { channel, created_at } = data.stream;
 
-  // if (channel.display_name !== TWITCH_USERNAME) {
-  //   return;
-  // }
+  if (channel.display_name !== TWITCH_USERNAME) {
+    return;
+  }
 
   const now = new Date();
   const streamStartTime = new Date(created_at);
