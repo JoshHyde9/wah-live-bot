@@ -30,6 +30,9 @@ client.on("ready", () => {
   guild = client.guilds.cache.find((guild) => guild.id === GUILD_ID);
 });
 
+let runOnce = true;
+let runOnce2 = true;
+
 const isWahLive = async () => {
   const response = await fetch(
     `https://api.twitch.tv/kraken/streams/${TWITCH_USER_ID}`,
@@ -61,16 +64,23 @@ const isWahLive = async () => {
 
   // Announce when 69 followers is reached
   if (channel.followers === 69) {
-    announceChannel.send(
-      `@everyone! ${TWITCH_USERNAME} just reached 69 followers! Lmao nice.`
-    );
+    if (runOnce) {
+      runOnce = false;
+      announceChannel.send(
+        `@everyone! ${TWITCH_USERNAME} just reached 69 followers! Lmao nice.`
+      );
+    }
   }
 
   // Announce when 420 followers is reached
   if (channel.followers === 420) {
-    announceChannel.send(
-      `@everyone! ${TWITCH_USERNAME} just reached 420 followers! How dope.`
-    );
+    if (runOnce2) {
+      runOnce2 = false;
+      announceChannel.send(
+        `@everyone! ${TWITCH_USERNAME} just reached 420 followers! How dope.`
+      );
+      console.log("Yote: ", runOnce2);
+    }
   }
 
   const now = new Date();
