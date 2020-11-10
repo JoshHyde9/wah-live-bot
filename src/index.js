@@ -102,7 +102,7 @@ const isWahLive = async () => {
         .setColor("#800080")
         .setTimestamp();
 
-      announceChannel.send("@everyone", { embed });
+      announceChannel.send({ embed });
     } catch (err) {
       console.error(err);
     }
